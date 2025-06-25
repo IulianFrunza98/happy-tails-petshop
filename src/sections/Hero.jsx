@@ -62,7 +62,7 @@ export default function Hero() {
           </motion.p>
 
           <motion.a
-            href="#shop"
+            href="#featuredproducts"
             className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-orange-500 font-semibold rounded-full shadow-lg hover:bg-orange-100 transition"
             whileHover={{ scale: 1.05 }}
             variants={item}

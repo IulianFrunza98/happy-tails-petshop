@@ -1,13 +1,17 @@
 import { NavLink } from "react-router-dom";
-import { CiSearch, CiShoppingCart, CiUser } from "react-icons/ci";
+import { CiSearch, CiShoppingCart } from "react-icons/ci";
 import Logo from "./Logo";
 import { IoMenuSharp } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import MobileMenu from "./MobileMenu";
 import { AnimatePresence } from "framer-motion";
+import CartMenu from "./CartMenu";
+import { useCartCount } from "../store/cartStore";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [cartMenuOpen, setCartMenuOpen] = useState(false);
+  const cartCount = useCartCount();
 
   // Prevent background scroll when mobile menu is open
   useEffect(() => {
@@ -24,17 +28,25 @@ export default function Navbar() {
   const navLinks = [
     { label: "Home", href: "#hero" },
     { label: "About", href: "#about" },
-    { label: "Shop", href: "#shop" },
+    { label: "Shop", href: "#featuredproducts" },
     { label: "Contact", href: "#contact" },
   ];
 
   const icons = [
     { icon: <CiSearch size="1.5em" />, key: "search" },
-    { icon: <CiShoppingCart size="1.5em" />, key: "cart" },
     {
-      icon: <CiUser size="1.5em" />,
-      key: "user",
-      to: "/login",
+      icon: (
+        <span className="relative">
+          <CiShoppingCart size="1.5em" />
+          {cartCount > 0 && (
+            <span className="absolute -top-2 -right-4 bg-orange-500 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow">
+              {cartCount}
+            </span>
+          )}
+        </span>
+      ),
+      key: "cart",
+      onClick: () => setCartMenuOpen(true),
     },
   ];
 
@@ -50,6 +62,9 @@ export default function Navbar() {
       >
         <IoMenuSharp size="1.6em" />
       </button>
+      <AnimatePresence>
+        {cartMenuOpen && <CartMenu setCartMenuOpen={setCartMenuOpen} />}
+      </AnimatePresence>
       <AnimatePresence>
         {mobileMenuOpen && (
           <MobileMenu setMobileMenuOpen={setMobileMenuOpen} id="mobile-menu" />
@@ -68,12 +83,18 @@ export default function Navbar() {
           </li>
         ))}
 
-        {icons.map(({ icon, key, to }) => (
+        {icons.map(({ icon, key, to, onClick }) => (
           <li key={key}>
             {to ? (
               <NavLink to={to}>{icon}</NavLink>
             ) : (
-              <span className="cursor-pointer hover:scale-110 transition">
+              <span
+                className="cursor-pointer hover:scale-110 transition"
+                onClick={onClick}
+                tabIndex={0}
+                role="button"
+                aria-label={key}
+              >
                 {icon}
               </span>
             )}
