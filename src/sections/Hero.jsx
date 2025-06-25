@@ -27,7 +27,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative bg-orange-400 m-3 rounded-2xl text-white overflow-hidden"
+      className="relative bg-orange-400 shadow-md m-3 px-6 py-20 md:py-32 rounded-2xl text-white overflow-hidden"
     >
       <Navbar />
 
