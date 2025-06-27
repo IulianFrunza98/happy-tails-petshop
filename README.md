@@ -58,7 +58,7 @@ src/
 
 ```bash
 # Clone the repo
-git clone <repository-url>
+git clone <https://github.com/IulianFrunza98/happy-tails-petshop>
 cd happy-tails-petshop
 
 # Install dependencies
