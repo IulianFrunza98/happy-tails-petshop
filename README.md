@@ -4,6 +4,15 @@ A modern, responsive online pet store frontend built with React and Zustand. Hap
 
 ---
 
+📸 Preview
+
+![Landing Page](src/assets/images/LandingPage.png)  
+![Products Page](src/assets/images/ProductsPage.png)  
+![Cart Page](src/assets/images/CartPage.png)  
+![Cart Menu](src/assets/images/CartMenu.png)
+
+---
+
 ## 🧰 Tech Stack
 
 - Frontend: React, Vite, Tailwind CSS, React Router DOM, Zustand, Framer Motion

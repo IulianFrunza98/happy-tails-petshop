@@ -32,7 +32,7 @@ function CheckoutPage() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-md mx-auto my-10 bg-white p-6 rounded-xl shadow space-y-4"
+      className="max-w-md my-20 sm:my-10 mx-4 sm:mx-auto bg-white p-6 rounded-xl shadow space-y-4"
     >
       <h2 className="text-2xl font-bold mb-4 text-orange-600">Checkout</h2>
       <input

@@ -10,22 +10,11 @@ function CartPage() {
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const total = useCartTotal();
-  const navigate = useNavigate();
 
   return (
     <>
       <PageNav />
       <div className="max-w-3xl mx-auto px-4 py-10">
-        {/* <header className="flex justify-around items-center gap-4 mb-8">
-        <button
-          className="bg-white flex items-center gap-2 rounded-full p-3 shadow cursor-pointer hover:bg-gray-100 transition"
-          onClick={() => navigate(-1)}
-          aria-label="Go back"
-          >
-          <FaArrowLeft size="1.6em" /> Back
-          </button>
-          <h1 className="text-3xl font-bold text-orange-600">Your Cart</h1>
-          </header> */}
         {cart.length === 0 ? (
           <div className="text-center text-gray-500 mt-20 text-lg">
             Your cart is empty.
