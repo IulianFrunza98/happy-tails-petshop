@@ -5,7 +5,7 @@ function MobileMenu({ setMobileMenuOpen }) {
   const navLinks = [
     { label: "Home", href: "#hero" },
     { label: "About", href: "#about" },
-    { label: "Shop", href: "#shop" },
+    { label: "Featured", href: "#featuredproducts" },
     { label: "Contact", href: "#contact" },
   ];
   return (

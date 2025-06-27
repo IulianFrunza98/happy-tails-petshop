@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import { useCartStore } from "../store/cartStore";
 
-function Product({ product, index }) {
+function FeaturedProduct({ featuredProduct, index }) {
   const addToCart = useCartStore((state) => state.addToCart);
   return (
     <motion.li
@@ -16,15 +16,17 @@ function Product({ product, index }) {
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 200 }}
         className="w-full max-w-[10rem] h-auto object-contain mb-4"
-        src={product.img}
-        alt={product.name}
+        src={featuredProduct.img}
+        alt={featuredProduct.name}
       />
-      <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
+      <h3 className="text-lg font-semibold text-gray-800">
+        {featuredProduct.name}
+      </h3>
       <p className="text-orange-500 font-bold text-base mb-4">
-        ${product.price.toFixed(2)}
+        ${featuredProduct.price.toFixed(2)}
       </p>
       <motion.button
-        onClick={() => addToCart(product)}
+        onClick={() => addToCart(featuredProduct)}
         whileTap={{ scale: 0.95 }}
         className="mt-auto px-4 py-2 cursor-pointer bg-orange-500 text-white rounded-full font-semibold text-sm hover:bg-orange-600 transition"
       >
@@ -34,4 +36,4 @@ function Product({ product, index }) {
   );
 }
 
-export default Product;
+export default FeaturedProduct;

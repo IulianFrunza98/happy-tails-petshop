@@ -1,9 +1,9 @@
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import HeroImage from "../assets/images/hero-image.png";
-
-// eslint-disable-next-line no-unused-vars
-import { motion } from "framer-motion";
+import { NavLink } from "react-router-dom";
 
 const container = {
   hidden: { opacity: 0, y: 20 },
@@ -24,6 +24,7 @@ const item = {
 };
 
 export default function Hero() {
+  const MotionNavLink = motion(NavLink);
   return (
     <section
       id="hero"
@@ -61,15 +62,15 @@ export default function Hero() {
             velit. 🐾
           </motion.p>
 
-          <motion.a
-            href="#featuredproducts"
+          <MotionNavLink
+            to="/products"
             className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-orange-500 font-semibold rounded-full shadow-lg hover:bg-orange-100 transition"
             whileHover={{ scale: 1.05 }}
             variants={item}
           >
             Browse Products
             <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
-          </motion.a>
+          </MotionNavLink>
 
           <motion.p
             className="mt-6 text-sm text-white/70 italic"
