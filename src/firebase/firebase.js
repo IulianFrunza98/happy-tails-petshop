@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB4PaSIw8E5pX7wO0YILEXGaadwL6mLDOg",
-  authDomain: "happy-tails-f26e5.firebaseapp.com",
-  projectId: "happy-tails-f26e5",
-  storageBucket: "happy-tails-f26e5.firebasestorage.app",
-  messagingSenderId: "204709549678",
-  appId: "1:204709549678:web:23d7385973ab237ed4b87f",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
