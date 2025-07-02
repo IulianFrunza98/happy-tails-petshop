@@ -1,9 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-import { useCartStore } from "../store/cartStore";
 
 function FeaturedProduct({ featuredProduct, index }) {
-  const addToCart = useCartStore((state) => state.addToCart);
   return (
     <motion.li
       initial={{ opacity: 0, y: 30 }}
@@ -25,13 +23,6 @@ function FeaturedProduct({ featuredProduct, index }) {
       <p className="text-orange-500 font-bold text-base mb-4">
         ${featuredProduct.price.toFixed(2)}
       </p>
-      <motion.button
-        onClick={() => addToCart(featuredProduct)}
-        whileTap={{ scale: 0.95 }}
-        className="mt-auto px-4 py-2 cursor-pointer bg-orange-500 text-white rounded-full font-semibold text-sm hover:bg-orange-600 transition"
-      >
-        Add to Cart
-      </motion.button>
     </motion.li>
   );
 }

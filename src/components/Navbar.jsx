@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { CiSearch, CiShoppingCart } from "react-icons/ci";
+import { CiSearch, CiShoppingCart, CiUser } from "react-icons/ci";
 import Logo from "./Logo";
 import { IoMenuSharp } from "react-icons/io5";
 import { useState, useEffect } from "react";
@@ -32,22 +32,7 @@ export default function Navbar() {
     { label: "Contact", href: "#contact" },
   ];
 
-  const icons = [
-    {
-      icon: (
-        <span className="relative">
-          <CiShoppingCart size="1.5em" />
-          {cartCount > 0 && (
-            <span className="absolute -top-2 -right-4 bg-orange-500 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow">
-              {cartCount}
-            </span>
-          )}
-        </span>
-      ),
-      key: "cart",
-      onClick: () => setCartMenuOpen(true),
-    },
-  ];
+  const icons = [{ icon: <CiUser size="1.5em" />, key: "auth", to: "/auth" }];
 
   return (
     <nav className="absolute top-0 left-0 w-full px-6 sm:px-10 py-6 flex justify-between items-center z-50">

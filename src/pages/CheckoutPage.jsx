@@ -24,7 +24,7 @@ function CheckoutPage() {
       setSuccess("Payment successful! (Demo only, no real payment processed)");
       clearCart();
       setTimeout(() => {
-        navigate("/");
+        navigate("/app/products", { replace: true });
       }, 1500); // Show success for 1.5s before navigating
     }, 1500);
   };

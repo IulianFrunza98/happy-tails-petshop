@@ -87,10 +87,10 @@ function CartPage() {
               </div>
               <NavLink
                 className="bg-orange-500 text-white font-bold py-3 px-8 rounded-full hover:bg-orange-600 transition text-lg shadow"
-                to="/checkout"
+                to="/app/checkout"
                 aria-label="Proceed to checkout"
               >
-                Checkout
+                Pay
               </NavLink>
             </div>
           </div>

@@ -110,7 +110,7 @@ function CartMenu({ setCartMenuOpen }) {
               className="w-full cursor-pointer bg-orange-500 text-white font-bold py-3 rounded-full hover:bg-orange-600 transition text-lg shadow"
               onClick={() => {
                 setCartMenuOpen(false);
-                navigate("/cart");
+                navigate("/app/cart");
               }}
               whileTap={{ scale: 0.97 }}
               aria-label="Proceed to checkout"

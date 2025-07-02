@@ -24,7 +24,7 @@ const item = {
 };
 
 export default function Hero() {
-  const MotionNavLink = motion(NavLink);
+  const MotionNavLink = motion.create(NavLink);
   return (
     <section
       id="hero"
@@ -63,7 +63,7 @@ export default function Hero() {
           </motion.p>
 
           <MotionNavLink
-            to="/products"
+            to="/auth"
             className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-orange-500 font-semibold rounded-full shadow-lg hover:bg-orange-100 transition"
             whileHover={{ scale: 1.05 }}
             variants={item}

@@ -1,14 +1,18 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { CiShoppingCart } from "react-icons/ci";
 import Logo from "./Logo";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import CartMenu from "./CartMenu";
 import { useCartCount } from "../store/cartStore";
+import { LuLogOut } from "react-icons/lu";
+import useAuthStore from "../store/authStore";
 
 export default function Navbar() {
   const [cartMenuOpen, setCartMenuOpen] = useState(false);
+  const navigate = useNavigate();
   const cartCount = useCartCount();
+  const logout = useAuthStore((state) => state.logout);
 
   const icons = [
     {
@@ -25,9 +29,17 @@ export default function Navbar() {
       key: "cart",
       onClick: () => setCartMenuOpen(true),
     },
+    {
+      icon: <LuLogOut />,
+      key: "logout",
+      onClick: () => {
+        logout();
+        navigate("/", { replace: true });
+      },
+    },
   ];
 
-  const navLinks = [{ label: "Products", to: "/products" }];
+  const navLinks = [{ label: "Products", to: "/app/products" }];
 
   return (
     <nav className="w-full bg-orange-500 text-white px-6 sm:px-10 py-6 flex justify-between items-center z-50">
