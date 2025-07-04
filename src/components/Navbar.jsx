@@ -1,17 +1,15 @@
 import { NavLink } from "react-router-dom";
-import { CiSearch, CiShoppingCart, CiUser } from "react-icons/ci";
+import { CiUser } from "react-icons/ci";
 import Logo from "./Logo";
 import { IoMenuSharp } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import MobileMenu from "./MobileMenu";
 import { AnimatePresence } from "framer-motion";
 import CartMenu from "./CartMenu";
-import { useCartCount } from "../store/cartStore";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartMenuOpen, setCartMenuOpen] = useState(false);
-  const cartCount = useCartCount();
 
   // Prevent background scroll when mobile menu is open
   useEffect(() => {
@@ -48,21 +46,9 @@ export default function Navbar() {
         >
           <IoMenuSharp size="1.6em" />
         </button>
-        {/* Mobile cart button with badge */}
-        <button
-          onClick={() => setCartMenuOpen(!cartMenuOpen)}
-          className="block sm:hidden relative"
-          aria-controls="cart-menu"
-          aria-expanded={cartMenuOpen}
-          aria-label="Open cart menu"
-        >
-          <CiShoppingCart size="1.6em" />
-          {cartCount > 0 && (
-            <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow">
-              {cartCount}
-            </span>
-          )}
-        </button>
+        <NavLink to="/auth" className="block sm:hidden">
+          <CiUser size="1.5em" />
+        </NavLink>
       </div>
       <AnimatePresence>
         {cartMenuOpen && <CartMenu setCartMenuOpen={setCartMenuOpen} />}

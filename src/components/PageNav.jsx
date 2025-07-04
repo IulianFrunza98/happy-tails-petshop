@@ -1,11 +1,10 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { CiShoppingCart } from "react-icons/ci";
+import { CiLogout, CiShoppingCart, CiUser } from "react-icons/ci";
 import Logo from "./Logo";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import CartMenu from "./CartMenu";
 import { useCartCount } from "../store/cartStore";
-import { LuLogOut } from "react-icons/lu";
 import useAuthStore from "../store/authStore";
 
 export default function Navbar() {
@@ -15,10 +14,11 @@ export default function Navbar() {
   const logout = useAuthStore((state) => state.logout);
 
   const icons = [
+    { icon: <CiUser size="1.5em" />, key: "profile", to: "/" },
     {
       icon: (
         <span className="relative">
-          <CiShoppingCart size="1.5em" />
+          <CiShoppingCart size="1.7em" />
           {cartCount > 0 && (
             <span className="absolute -top-2 -right-4 bg-orange-400 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow">
               {cartCount}
@@ -30,7 +30,7 @@ export default function Navbar() {
       onClick: () => setCartMenuOpen(true),
     },
     {
-      icon: <LuLogOut />,
+      icon: <CiLogout size="1.5em" className="rotate-180" />,
       key: "logout",
       onClick: () => {
         logout();
@@ -38,8 +38,6 @@ export default function Navbar() {
       },
     },
   ];
-
-  const navLinks = [{ label: "Products", to: "/app/products" }];
 
   return (
     <nav className="w-full bg-orange-500 text-white px-6 sm:px-10 py-6 flex justify-between items-center z-50">
@@ -53,32 +51,13 @@ export default function Navbar() {
           aria-controls="cart-menu"
           aria-expanded={cartMenuOpen}
           aria-label="Open cart menu"
-        >
-          <CiShoppingCart size="1.6em" />
-          {cartCount > 0 && (
-            <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow">
-              {cartCount}
-            </span>
-          )}
-        </button>
+        ></button>
       </div>
       <AnimatePresence>
         {cartMenuOpen && <CartMenu setCartMenuOpen={setCartMenuOpen} />}
       </AnimatePresence>
 
-      <ul className="hidden sm:flex gap-6 items-center text-white font-medium">
-        {navLinks.map(({ label, to }) => (
-          <li key={label} className="relative group">
-            <NavLink
-              to={to}
-              className="inline-block relative z-10 transition-colors"
-            >
-              {label}
-            </NavLink>
-            <span className="absolute left-0 bottom-0 h-[2px] w-0 bg-white group-hover:w-full transition-all duration-500"></span>
-          </li>
-        ))}
-
+      <ul className="flex gap-5 items-center text-white font-medium">
         {icons.map(({ icon, key, to, onClick }) => (
           <li key={key}>
             {to ? (

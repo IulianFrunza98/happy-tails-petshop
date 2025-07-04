@@ -21,6 +21,7 @@ function CartPage() {
           </div>
         ) : (
           <div className="flex flex-col gap-8">
+            <h1 className="text-2xl font-bold text-orange-400">Cart</h1>
             <AnimatePresence>
               {cart.map((item) => (
                 <motion.div

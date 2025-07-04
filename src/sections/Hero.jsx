@@ -4,6 +4,7 @@ import { FaArrowRight } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import HeroImage from "../assets/images/hero-image.png";
 import { NavLink } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const container = {
   hidden: { opacity: 0, y: 20 },
@@ -64,6 +65,7 @@ export default function Hero() {
 
           <MotionNavLink
             to="/auth"
+            onClick={() => toast.error("Please login to browse products.")}
             className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-orange-500 font-semibold rounded-full shadow-lg hover:bg-orange-100 transition"
             whileHover={{ scale: 1.05 }}
             variants={item}

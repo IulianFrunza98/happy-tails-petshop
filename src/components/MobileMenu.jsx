@@ -8,6 +8,7 @@ function MobileMenu({ setMobileMenuOpen }) {
     { label: "Featured", href: "#featuredproducts" },
     { label: "Contact", href: "#contact" },
   ];
+
   return (
     <motion.nav
       initial={{ opacity: 0, x: -20 }}

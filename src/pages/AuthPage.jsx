@@ -3,38 +3,64 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaGoogle } from "react-icons/fa";
 import useAuthStore from "../store/authStore";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function AuthPage() {
   const [mode, setMode] = useState("login");
   const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/app/products";
+
+  const loginWithEmail = useAuthStore((state) => state.loginWithEmail);
+  const registerWithEmail = useAuthStore((state) => state.registerWithEmail);
   const loginWithGoogle = useAuthStore((state) => state.loginWithGoogle);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    alert(`${mode === "login" ? "Logged in" : "Registered"}`);
+    setError("");
+    setLoading(true);
+
+    try {
+      if (mode === "login") {
+        await loginWithEmail(email, password);
+        navigate(from, { replace: true });
+      } else {
+        if (password !== confirmPassword) {
+          setError("Passwords do not match.");
+          setLoading(false);
+          return;
+        }
+        await registerWithEmail(email, password);
+        navigate(from, { replace: true });
+      }
+    } catch (err) {
+      setError(err.message || "Authentication failed.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function handleGoogleLogin() {
     setLoading(true);
+    setError("");
     try {
       await loginWithGoogle();
       navigate(from, { replace: true });
     } catch (err) {
-      console.error(err);
+      setError("Google login failed.", err.message || "Please try again.");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-orange-50">
+    <div className="flex items-center min-h-screen justify-center mx-4 bg-orange-50">
       <form
         className="flex flex-col gap-5 bg-white shadow-lg rounded-xl p-8 min-w-[320px] w-full max-w-sm"
         onSubmit={handleSubmit}
@@ -88,6 +114,7 @@ function AuthPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 autoComplete="username"
+                disabled={loading}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -108,6 +135,7 @@ function AuthPage() {
                 autoComplete={
                   mode === "login" ? "current-password" : "new-password"
                 }
+                disabled={loading}
               />
             </div>
             {mode === "register" && (
@@ -123,10 +151,16 @@ function AuthPage() {
                   type="password"
                   id="confirmPassword"
                   name="confirmPassword"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                   autoComplete="new-password"
+                  disabled={loading}
                 />
               </div>
+            )}
+            {error && (
+              <div className="text-red-500 text-sm text-center">{error}</div>
             )}
             <button
               type="submit"
@@ -144,13 +178,18 @@ function AuthPage() {
             {mode === "login" && (
               <button
                 onClick={handleGoogleLogin}
-                type="submit"
+                type="button"
                 className="w-full cursor-pointer bg-white border py-3 rounded font-bold hover:bg-gray-200 transition"
+                disabled={loading}
               >
                 <FaGoogle className="inline mr-2" />
                 Login with Google
               </button>
             )}
+          </motion.div>
+          <motion.div className="flex justify-around font-semibold text-[0.8rem] gap-3 text-center">
+            <Link to="/">Go to homepage</Link>
+            {mode === "login" && <Link to="/">Forgot Password?</Link>}
           </motion.div>
         </AnimatePresence>
       </form>

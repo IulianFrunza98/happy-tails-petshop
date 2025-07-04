@@ -30,7 +30,7 @@ function Footer() {
       className="bg-orange-400 text-white pt-12 pb-6 px-4 mt-16 rounded-t-2xl shadow-inner"
     >
       <motion.div
-        className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10"
+        className="flex items-start justify-between flex-col sm:flex-row gap-8 max-w-6xl mx-auto"
         variants={container}
       >
         {/* Brand & Newsletter */}
@@ -58,37 +58,6 @@ function Footer() {
               </button>
             </div>
           </form>
-        </motion.div>
-        {/* Navigation */}
-        <motion.div variants={item}>
-          <div className="font-semibold mb-3">Quick Links</div>
-          <ul className="flex flex-col gap-2 text-white/90">
-            <li>
-              <a href="#hero" className="hover:underline">
-                Home
-              </a>
-            </li>
-            <li>
-              <a href="#about" className="hover:underline">
-                About
-              </a>
-            </li>
-            <li>
-              <a href="#shop" className="hover:underline">
-                Shop
-              </a>
-            </li>
-            <li>
-              <a href="#contact" className="hover:underline">
-                Contact
-              </a>
-            </li>
-            <li>
-              <NavLink to="/login" className="hover:underline">
-                Login
-              </NavLink>
-            </li>
-          </ul>
         </motion.div>
         {/* Customer Service */}
         <motion.div variants={item}>

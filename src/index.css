@@ -14,3 +14,8 @@ section {
   @apply flex items-center justify-center flex-col text-center px-4 py-10;
   min-height: calc(100vh - 3.5rem);
 }
+
+button,
+a {
+  @apply cursor-pointer;
+}

@@ -147,6 +147,15 @@ export const toyAndAccessoryProducts = [
     img: "https://cdn.shopify.com/s/files/1/0616/0760/8540/products/PonchoBlack_360x.png?v=1655207185",
     description: "Waterproof raincoat with hood and reflective strips.",
   },
+  {
+    id: 17,
+    quantity: 1,
+    name: "Cat Raincoat",
+    category: "Accessories",
+    price: 11.75,
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMUDFNG2Tj8y4owEwpeaMyl-RBCp6PGyWLaQ&s",
+    description: "Waterproof raincoat with hood and reflective strips.",
+  },
 ];
 
 export const allPRoducts = [...featuredProducts, ...toyAndAccessoryProducts];
