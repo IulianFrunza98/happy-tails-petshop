@@ -51,6 +51,15 @@ const useAuthStore = create(
             throw err;
           }
         },
+        resetPassword: async (email) => {
+          try {
+            await auth.sendPasswordResetEmail(email);
+            toast.success("Password reset email sent.");
+          } catch (err) {
+            console.error("Password reset failed", err);
+            toast.error("Failed to send password reset email.");
+          }
+        },
 
         logout: async () => {
           try {

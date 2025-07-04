@@ -7,6 +7,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function AuthPage() {
   const [mode, setMode] = useState("login");
+  const [showResetPassword, setShowResetPassword] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [showReset, setShowReset] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -20,6 +23,25 @@ function AuthPage() {
   const loginWithEmail = useAuthStore((state) => state.loginWithEmail);
   const registerWithEmail = useAuthStore((state) => state.registerWithEmail);
   const loginWithGoogle = useAuthStore((state) => state.loginWithGoogle);
+  const resetPassword = useAuthStore((state) => state.resetPassword);
+
+  async function handleResetPassword(e) {
+    if (!email) {
+      setError("Please enter your email.");
+      return;
+    }
+    setError("");
+    setLoading(true);
+    e.preventDefault();
+    try {
+      await resetPassword(email);
+      setShowResetPassword(false);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -189,10 +211,51 @@ function AuthPage() {
           </motion.div>
           <motion.div className="flex justify-around font-semibold text-[0.8rem] gap-3 text-center">
             <Link to="/">Go to homepage</Link>
-            {mode === "login" && <Link to="/">Forgot Password?</Link>}
+            {mode === "login" && (
+              <button
+                type="button"
+                className="text-orange-500 underline"
+                onClick={() => setShowReset(true)}
+              >
+                Forgot Password?
+              </button>
+            )}
           </motion.div>
         </AnimatePresence>
       </form>
+      {showReset && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+          <form
+            onSubmit={handleResetPassword}
+            className="bg-white rounded-xl shadow-lg p-6 flex flex-col gap-4 min-w-[300px]"
+          >
+            <h2 className="text-lg font-bold text-orange-500 mb-2">
+              Reset Password
+            </h2>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="border rounded p-2"
+              value={resetEmail}
+              onChange={(e) => setResetEmail(e.target.value)}
+              required
+            />
+            <button
+              type="submit"
+              className="bg-orange-500 text-white rounded py-2 font-bold"
+            >
+              Send Reset Email
+            </button>
+            <button
+              type="button"
+              className="text-orange-500 underline mt-2"
+              onClick={() => setShowReset(false)}
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
