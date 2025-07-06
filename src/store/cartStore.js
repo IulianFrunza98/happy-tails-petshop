@@ -11,7 +11,12 @@ export const useCartStore = create((set, get) => ({
   error: null,
 
   getUserId: () => {
-    return auth.currentUser ? auth.currentUser.uid : null;
+    try {
+      return auth.currentUser ? auth.currentUser.uid : null;
+    } catch (error) {
+      console.error("Error getting user ID:", error);
+      return null;
+    }
   },
 
   // Listen for auth state changes and initialize cart accordingly
@@ -43,6 +48,7 @@ export const useCartStore = create((set, get) => ({
         set({ cart: [], loading: false });
       }
     } catch (error) {
+      console.error("Error initializing cart:", error);
       set({ error: error.message, loading: false });
     }
   },
