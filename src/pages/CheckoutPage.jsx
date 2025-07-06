@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCartStore } from "../store/cartStore";
 
@@ -13,27 +13,53 @@ function CheckoutPage() {
   const navigate = useNavigate();
   const clearCart = useCartStore((state) => state.clearCart);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleApprove = (_, actions) => {
     setLoading(true);
     setError("");
     setSuccess("");
-    // Simulate network/payment delay
-    setTimeout(() => {
+    return actions.order.capture().then(() => {
       setLoading(false);
-      setSuccess("Payment successful! (Demo only, no real payment processed)");
+      setSuccess("Payment successful! (Demo with PayPal sandbox)");
       clearCart();
       setTimeout(() => {
         navigate("/app/products", { replace: true });
-      }, 1500); // Show success for 1.5s before navigating
-    }, 1500);
+      }, 1500);
+    });
   };
 
+  const handleError = () => {
+    setError("Payment failed. Please try again.");
+    setLoading(false);
+  };
+
+  // Load PayPal script and render buttons
+  React.useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://www.paypal.com/sdk/js?client-id=sb&currency=USD";
+    script.addEventListener("load", () => {
+      window.paypal
+        .Buttons({
+          createOrder: (data, actions) => {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    value: "10.00", // demo amount
+                  },
+                },
+              ],
+            });
+          },
+          onApprove: handleApprove,
+          onError: handleError,
+        })
+        .render("#paypal-button-container");
+    });
+    document.body.appendChild(script);
+  });
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-md my-20 sm:my-10 mx-4 sm:mx-auto bg-white p-6 rounded-xl shadow space-y-4"
-    >
+    <div className="max-w-md my-20 sm:my-10 mx-4 sm:mx-auto bg-white p-6 rounded-xl shadow space-y-4">
       <h2 className="text-2xl font-bold mb-4 text-orange-600">Checkout</h2>
       <input
         type="text"
@@ -69,20 +95,11 @@ function CheckoutPage() {
           className="w-1/2 p-3 border rounded"
         />
       </div>
-      {/* Fake CardElement for UI consistency */}
-      <div className="p-3 border rounded bg-gray-50 text-gray-400">
-        <span>Card details (demo only)</span>
-      </div>
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-orange-500 text-white py-3 rounded font-bold hover:bg-orange-600 transition"
-      >
-        {loading ? "Processing..." : "Pay"}
-      </button>
+      <div id="paypal-button-container" />
+      {loading && <div className="text-blue-600">Processing payment...</div>}
       {error && <div className="text-red-500">{error}</div>}
       {success && <div className="text-green-600">{success}</div>}
-    </form>
+    </div>
   );
 }
 

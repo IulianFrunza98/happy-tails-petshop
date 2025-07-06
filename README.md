@@ -28,6 +28,7 @@ A modern, responsive online pet store frontend built with React and Zustand. Hap
 - Manage your shopping cart with ease.
 - Cart data is persisted in Firebase Firestore per authenticated user.
 - Demo checkout feature simulating payment processing (no real payment integration).
+- Integrated PayPal Checkout sandbox for demo payment processing without backend.
 - Responsive and modern UI built with Tailwind CSS.
 - Smooth animations using Framer Motion.
 - Product search with fuzzy matching for quick results.
@@ -95,6 +96,14 @@ npm run dev
 
 Open your browser and navigate to `http://localhost:5173` (or the port shown in your terminal).
 
+### 💳 Payment Integration
+
+- The checkout page integrates PayPal Checkout sandbox for demo payment processing.
+- PayPal Buttons SDK is loaded dynamically on the checkout page.
+- Payments are processed in sandbox mode without requiring a backend.
+- On successful payment, the cart is cleared and the user is redirected to the products page.
+- This integration is suitable for portfolio demos and testing purposes.
+
 ---
 
 ## 🧪 Build for Production
@@ -122,7 +131,7 @@ Feel free to fork the repository and submit a pull request. Feedback and improve
 
 ## 👤 Author
 
-Frunza Iulian-Costel
+Frunza Iulian-Costel  
 GitHub: [github-profile](https://github.com/IulianFrunza98)  
 LinkedIn: [linkedin-profile](https://www.linkedin.com/in/iulian-frunz%C4%83-3689a8329/)  
 Email: fiulian87@yahoo.com
