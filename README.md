@@ -122,7 +122,7 @@ Feel free to fork the repository and submit a pull request. Feedback and improve
 
 ## 👤 Author
 
-Your Name  
+Frunza Iulian-Costel
 GitHub: [github-profile](https://github.com/IulianFrunza98)  
 LinkedIn: [linkedin-profile](https://www.linkedin.com/in/iulian-frunz%C4%83-3689a8329/)  
 Email: fiulian87@yahoo.com
