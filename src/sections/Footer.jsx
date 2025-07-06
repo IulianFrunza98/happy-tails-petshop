@@ -27,7 +27,7 @@ function Footer() {
       animate="visible"
       exit="hidden"
       variants={container}
-      className="bg-orange-400 text-white pt-12 pb-6 px-4 mt-16 rounded-t-2xl shadow-inner"
+      className="bg-orange-400 text-white pt-12 pb-6 px-4 mt-16 sm:rounded-t-2xl shadow-inner"
     >
       <motion.div
         className="flex items-start justify-between flex-col sm:flex-row gap-8 max-w-6xl mx-auto"

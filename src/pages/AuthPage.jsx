@@ -9,7 +9,6 @@ function AuthPage() {
   const [mode, setMode] = useState("login");
   const [showResetPassword, setShowResetPassword] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
-  const [showReset, setShowReset] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -215,7 +214,7 @@ function AuthPage() {
               <button
                 type="button"
                 className="text-orange-500 underline"
-                onClick={() => setShowReset(true)}
+                onClick={() => setShowResetPassword(true)}
               >
                 Forgot Password?
               </button>
@@ -223,7 +222,7 @@ function AuthPage() {
           </motion.div>
         </AnimatePresence>
       </form>
-      {showReset && (
+      {showResetPassword && (
         <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
           <form
             onSubmit={handleResetPassword}
@@ -249,7 +248,7 @@ function AuthPage() {
             <button
               type="button"
               className="text-orange-500 underline mt-2"
-              onClick={() => setShowReset(false)}
+              onClick={() => setShowResetPassword(false)}
             >
               Cancel
             </button>

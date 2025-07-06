@@ -8,9 +8,19 @@ const CartPage = lazy(() => import("./pages/CartPage"));
 const ProductsPage = lazy(() => import("./pages/ProductsPage"));
 const CheckoutPage = lazy(() => import("./pages/CheckoutPage"));
 const AuthPage = lazy(() => import("./pages/AuthPage"));
+const Profile = lazy(() => import("./pages/Profile"));
 const AppLayout = lazy(() => import("./layouts/AppLayout"));
 
+import { useEffect } from "react";
+import { useCartStore } from "./store/cartStore";
+
 function App() {
+  const listenAuthState = useCartStore((state) => state.listenAuthState);
+
+  useEffect(() => {
+    listenAuthState();
+  }, [listenAuthState]);
+
   return (
     <>
       <Toaster
@@ -48,6 +58,7 @@ function App() {
           >
             <Route path="cart" element={<CartPage />} />
             <Route path="products" element={<ProductsPage />} />
+            <Route path="profile" element={<Profile />} />
             <Route path="checkout" element={<CheckoutPage />} />
           </Route>
         </Routes>

@@ -6,6 +6,7 @@ import { AnimatePresence } from "framer-motion";
 import CartMenu from "./CartMenu";
 import { useCartCount } from "../store/cartStore";
 import useAuthStore from "../store/authStore";
+import { IoMenuSharp } from "react-icons/io5";
 
 export default function Navbar() {
   const [cartMenuOpen, setCartMenuOpen] = useState(false);
@@ -14,7 +15,7 @@ export default function Navbar() {
   const logout = useAuthStore((state) => state.logout);
 
   const icons = [
-    { icon: <CiUser size="1.5em" />, key: "profile", to: "/" },
+    { icon: <CiUser size="1.5em" />, key: "profile", to: "/app/profile" },
     {
       icon: (
         <span className="relative">

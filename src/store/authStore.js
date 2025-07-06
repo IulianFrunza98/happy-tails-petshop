@@ -7,7 +7,9 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
+
 import toast from "react-hot-toast";
 
 const useAuthStore = create(
@@ -53,7 +55,7 @@ const useAuthStore = create(
         },
         resetPassword: async (email) => {
           try {
-            await auth.sendPasswordResetEmail(email);
+            await sendPasswordResetEmail(auth, email);
             toast.success("Password reset email sent.");
           } catch (err) {
             console.error("Password reset failed", err);
