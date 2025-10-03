@@ -5,14 +5,13 @@ import { useFilteredProducts } from "../hooks/useFilteredProducts"; // custom ho
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { useCartStore } from "../store/cartStore";
-import PageNav from "../components/PageNav";
-
-const CATEGORIES = ["All", "Food", "Toys", "Accessories"];
+import Search from "../components/Search";
+import MobileSearch from "../components/MobileSearch";
 
 function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [search, setSearch] = useState("");
-  const [debouncedSearch] = useDebounce(search, 300); // debounce input
+  const [debouncedSearch] = useDebounce(search, 300);
   const addToCart = useCartStore((state) => state.addToCart);
 
   const filteredProducts = useFilteredProducts(
@@ -22,41 +21,23 @@ function ProductsPage() {
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row gap-10">
-      {/* Sidebar & Search */}
-      <aside className="md:w-64 w-full md:sticky top-24">
-        <div className="bg-white rounded-2xl shadow p-6 mb-6">
-          <h2 className="text-lg font-bold mb-4 text-orange-600">Filter</h2>
-          <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">Category</label>
-            <div className="flex flex-col gap-2">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat}
-                  className={`text-left px-3 py-2 rounded transition ${
-                    selectedCategory === cat
-                      ? "bg-orange-500 text-white"
-                      : "hover:bg-orange-100"
-                  }`}
-                  onClick={() => setSelectedCategory(cat)}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div>
-            <label className="block text-sm font-semibold mb-2">Search</label>
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search products..."
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-orange-400"
-            />
-          </div>
-        </div>
-      </aside>
+    <div className="max-w-7xl mx-auto px-4 py-0 sm:py-10 flex flex-col md:flex-row gap-10">
+      {/* Sidebar desktop */}
+      <Search
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        search={search}
+        setSearch={setSearch}
+        className="hidden sm:block md:sticky top-24"
+      />
+
+      {/* Filter pe mobil */}
+      <MobileSearch
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        search={search}
+        setSearch={setSearch}
+      />
 
       {/* Decorative blur */}
       <span className="absolute w-72 h-72 bg-white/20 rounded-full -top-16 -left-20 blur-3xl pointer-events-none"></span>
